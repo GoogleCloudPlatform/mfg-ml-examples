@@ -27,7 +27,7 @@ environment.
     ![MCe API token creation](./img/mce_api_token_creation.png)
     - To obtain MCe Pub/Sub connector id, you can get it from the "Integration"
       section in your MCe instance.
-    ![MCe Pub/Sub connector id]()
+    ![MCe Pub/Sub connector id](./img/mce_pubsub_connector_id.png)
 
 1. (Optional) Start a SSH tunnel to the [Google Compute Engine](https://cloud.google.com/compute)
    proxy instance as instructed in the MDE Deployment Guide.
@@ -35,10 +35,58 @@ environment.
       with your GCP environment, you can skip this step.
 
 1. From the `/tools` directory, run `deploy.sh`.
+    - This will configure MDE and MCe for ML4M.
+
+1. Import pre-defined flow into your MCe instance.
+    - Navigate to MCe UI and select "Flow Manager" on the sidebar.
+    - Click the "Go To Flow Definition" button for "flow-1".
+      "flow-1" should be automatically created when you deploy MCe.
+    - In Node-RED UI, expand the hamburger button in the upper right
+      corner. Select "Import".
+    - In the popup window, click on the "select a file to import" button and
+      locate the [flow definition](/mce/flows/flow-data-generation.json) on
+      your filesystem. Leave other settings as default and click "Import".
+    ![MCe flow import](./img/mce_flow_import.png)
+    - You should see the imported flow in a new tab within the Node-RED UI.
+      Navigate to the imported flow tab and click "Deploy" in the upper right
+      corner.
+    ![MCe flow deploy](./img/mce_flow_deploy.png)
 
 ### Vertex AI
 
-TODO
+For this part, you will create a notebook instance in
+[Vertex AI Workbench](https://cloud.google.com/vertex-ai/docs/workbench/introduction)
+and train & deploy AutoML models in Jupyter notebooks.
+
+1. Navigate to [Vertex AI Workbench](https://console.cloud.google.com/vertex-ai/workbench/legacy-instances).
+    - If this is your first time using Vertex AI, you will need to enable
+      Vertex AI API before proceeding.
+
+1. Enable the Notebook API shown in the banner.
+<!-- TODO: screenshot -->
+
+1. Create a new managed notebook.
+    - Change the notebook instance name and region to your preferred name
+      and region. Leave all other settings as their default values.
+
+1. It should take 2-5 minutes for the notebook instance to provision. Once
+   the instance is active, click "OPEN JUPYTERLAB" to open the notebook UI.
+    - If this is your first time accessing the instance, you will have to
+      authenticate against the managed notebook instance such that the instance
+      can access your GCP data.
+
+1. In the managed notebook instance, you can choose to clone the GitHub
+   repository directly or upload the [notebooks](/notebooks/) into the managed
+   notebook instance.
+
+1. Once the notebooks are stored in your managed notebook instance, follow
+   through the notebooks in order and run all their cells.
+    - Note: use the "Python" kernel provided by the managed notebook instances.
+    - The [1_tool_wear_train.ipynb](/notebooks/1_tool_wear_train.ipynb)
+      notebook will train an AutoML model for tool wear detection and the
+      [2_tool_wear_batch_predict.ipynb](/notebooks/2_tool_wear_batch_predict.ipynb)
+      will use the trained model to execute batch prediction using real-time
+      data ingested in MDE.
 
 ### Looker
 
