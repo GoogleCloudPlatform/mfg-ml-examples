@@ -3,8 +3,6 @@
         "schemaId": "organization",
         "provider": "local",
         "bucketName": "cncmill",
-        "bucketVersion": 2,
-        "version": 1,
         "attributes": {
             "companyId": "CM",
             "company": "Cymbal Materials",
@@ -28,8 +26,6 @@
         "schemaId": "asset",
         "provider": "local",
         "bucketName": "cncmill",
-        "bucketVersion": 2,
-        "version": 1,
         "attributes": {
             "equipmentLocation": "CAM",
             "equipmentId": "01",
@@ -41,8 +37,6 @@
         "schemaId": "cncmill",
         "provider": "local",
         "bucketName": "cncmill",
-        "bucketVersion": 2,
-        "version": 1,
         "attributes": {
             "material": "wax"
         }
