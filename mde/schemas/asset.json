@@ -1,0 +1,7 @@
+{
+    "schemaId": "asset",
+    "name": "asset",
+    "provider": "local",
+    "value": "{\n    \"$schema\": \"https://json-schema.org/draft/2020-12/schema\",\n    \"$id\": \"kAsset\",\n    \"title\": \"Asset\",\n    \"description\": \"Asset\",\n    \"type\": \"object\",\n    \"properties\":\n    {\n        \"equipmentLocation\":\n        {\n            \"name\": \"equipmentLocation\",\n            \"description\": \"Equipment Location\",\n            \"type\": \"string\"\n        },\n        \"equipmentId\":\n        {\n            \"name\": \"equipmentId\",\n            \"description\": \"Equipment Id\",\n            \"type\": \"string\"\n        },\n        \"equipment\":\n        {\n            \"name\": \"equipment\",\n            \"description\": \"Equipment\",\n            \"type\": \"string\"\n        },\n        \"equipmentType\":\n        {\n            \"name\": \"equipmentType\",\n            \"description\": \"Equipment Type\",\n            \"type\": \"string\"\n        }\n    },\n    \"required\":\n    []\n}",
+    "description": "Asset metadata used by LookML"
+}

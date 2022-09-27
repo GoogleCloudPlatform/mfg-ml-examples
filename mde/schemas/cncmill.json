@@ -1,0 +1,7 @@
+{
+    "schemaId": "cncmill",
+    "name": "cncmill",
+    "provider": "local",
+    "value": "{\n    \"$schema\": \"https://json-schema.org/draft/2020-12/schema\",\n    \"$id\": \"cncmill\",\n    \"title\": \"CNC Mill\",\n    \"description\": \"CNC Mill\",\n    \"type\": \"object\",\n    \"properties\":\n    {\n        \"material\":\n        {\n            \"name\": \"material\",\n            \"description\": \"Material\",\n            \"type\": \"string\"\n        }\n    },\n    \"required\":\n    [\"material\"]\n}",
+    "description": "CNC mill metadata"
+}

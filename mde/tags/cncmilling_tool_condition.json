@@ -1,0 +1,23 @@
+{
+    "name": "cncmilling_tool_condition",
+    "archetypeName": "discrete-data-series",
+    "typeName": "discrete-data-series.default",
+    "metadata": {},
+    "metadataBuckets": [],
+    "storageSpecification": {
+        "timeseries": {
+            "enabled": false,
+            "flatSchema": false,
+            "name": "bigtable"
+        },
+        "warehouse": {
+            "enabled": true,
+            "flatSchema": true,
+            "name": "bigquery"
+        },
+        "file": {
+            "enabled": true,
+            "name": "gcs"
+        }
+    }
+}

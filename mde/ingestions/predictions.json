@@ -1,0 +1,4 @@
+{
+    "source": "JSON",
+    "filePattern": "tool_wear_predictions\/prediction-(.*)\/(prediction|explanation).results-(.*)"
+}

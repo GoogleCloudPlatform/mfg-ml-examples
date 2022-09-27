@@ -1,0 +1,7 @@
+{
+    "name": "tool_wear_predictions",
+    "expression": {
+        "value": "#root.event['instance'] != null && #root.event['prediction'] != null"
+    },
+    "priority": 32400
+}

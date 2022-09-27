@@ -1,0 +1,13 @@
+{
+    "dynamic": false,
+    "required": false,
+    "schema": {
+        "schemaId": "organization",
+        "name": "organization",
+        "provider": "local",
+        "value": "{\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"$id\":\"organization\",\"title\":\"Organization\",\"description\":\"Organization\",\"type\":\"object\",\"properties\":{\"companyId\":{\"name\":\"companyId\",\"description\":\"Company Id\",\"type\":\"string\"},\"company\":{\"name\":\"company\",\"description\":\"Company\",\"type\":\"string\"},\"plantId\":{\"name\":\"plantId\",\"description\":\"Plant Id\",\"type\":\"string\"},\"plant\":{\"name\":\"plant\",\"description\":\"Plant\",\"type\":\"string\"},\"city\":{\"name\":\"city\",\"description\":\"City\",\"type\":\"string\"},\"address\":{\"name\":\"address\",\"description\":\"Address\",\"type\":\"string\"},\"federalState\":{\"name\":\"federalState\",\"description\":\"Federal State\",\"type\":\"string\"},\"country\":{\"name\":\"country\",\"description\":\"Country\",\"type\":\"string\"},\"departmentId\":{\"name\":\"departmentId\",\"description\":\"Department Id\",\"type\":\"string\"},\"department\":{\"name\":\"department\",\"description\":\"Department\",\"type\":\"string\"},\"lineId\":{\"name\":\"lineId\",\"description\":\"Line Id\",\"type\":\"string\"},\"line\":{\"name\":\"line\",\"description\":\"Line\",\"type\":\"string\"},\"processId\":{\"name\":\"processId\",\"description\":\"Process Id\",\"type\":\"string\"},\"process\":{\"name\":\"process\",\"description\":\"Process\",\"type\":\"string\"},\"stationId\":{\"name\":\"stationId\",\"description\":\"Station Id\",\"type\":\"string\"},\"station\":{\"name\":\"station\",\"description\":\"Station\",\"type\":\"string\"}},\"required\":[]}",
+        "updatedDate": 0,
+        "createdDate": 0
+    },
+    "bucketName": "cncmill"
+}

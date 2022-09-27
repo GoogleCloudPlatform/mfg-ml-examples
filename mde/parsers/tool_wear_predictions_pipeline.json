@@ -1,0 +1,9 @@
+{
+    "name": "tool_wear_predictions_pipeline",
+    "payloadName": "tool_wear_predictions",
+    "typeName": "discrete-data-series.default",
+    "mapper": {
+        "map": "package sfp\n\n[{\narchetypeName: \"discrete-data-series\";\ntypeName: \"discrete-data-series.default\";\npipelineName: \"tool_wear_predictions_pipeline\";\ntagName: \"tool_wear_predictions\";\ntimestamps: Input_Timestamp($root);\ndata: Input_Data($root);\npayloadQualifier: Input_Context($root);\n}]\n\ndef Input_Timestamp(input) {\n    if(isNotNil(input.instance.eventTimestamp)) then {\n        timestamp: parseDateTime(\"yyyy-MM-dd HH:mm:ssZZ\", input.instance.eventTimestamp);\n    }\n}\n\ndef Input_Data(input) {\n    if(isNotNil(input.prediction.classes) and isNotNil(input.prediction.scores)) then {\n        predictions: Zip_Predictions(input.prediction.classes[], input.prediction.scores[])\n    }\n}\n\ndef Input_Context(input){\n  version: 1;\n  attributes: input;\n}\n\ndef Zip_Predictions(class, score){\n    class: class;\n    score: score;\n}"
+    },
+    "enabled": true
+}

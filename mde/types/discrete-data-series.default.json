@@ -1,0 +1,26 @@
+{
+    "name": "discrete-data-series.default",
+    "archetype": {
+        "name": "discrete-data-series"
+    },
+    "storageSpecification": {
+        "timeseries": {
+            "enabled": false,
+            "flatSchema": false,
+            "name": "bigtable"
+        },
+        "warehouse": {
+            "enabled": true,
+            "flatSchema": true,
+            "name": "bigquery"
+        },
+        "file": {
+            "enabled": true,
+            "name": "gcs"
+        }
+    },
+    "payloadSpecification": {
+        "schema": "{\n  \"$id\": \"https://sfp.cloud.google.com/default.schema.json\",\n  \"$schema\": \"https://json-schema.org/draft/2020-12/schema\",\n  \"title\": \"GenericObject\",\n  \"type\": \"object\"\n}"
+    },
+    "permissive": true
+}

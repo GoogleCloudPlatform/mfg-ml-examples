@@ -1,0 +1,22 @@
+{
+    "name": "deployment-test-numeric",
+    "archetypeName": "numeric-data-series",
+    "typeName": "numeric-data-series.default",
+    "metadata": {},
+    "storageSpecification": {
+        "timeseries": {
+            "enabled": false,
+            "flatSchema": false,
+            "name": "bigtable"
+        },
+        "warehouse": {
+            "enabled": true,
+            "flatSchema": true,
+            "name": "bigquery"
+        },
+        "file": {
+            "enabled": true,
+            "name": "gcs"
+        }
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "name": "cncmilling_s1_actualacceleration",
+    "archetypeName": "numeric-data-series",
+    "typeName": "numeric-data-series.default",
+    "metadata": {},
+    "metadataBuckets": [],
+    "storageSpecification": {
+        "timeseries": {
+            "enabled": false,
+            "flatSchema": false,
+            "name": "bigtable"
+        },
+        "warehouse": {
+            "enabled": true,
+            "flatSchema": true,
+            "name": "bigquery"
+        },
+        "file": {
+            "enabled": true,
+            "name": "gcs"
+        }
+    }
+}

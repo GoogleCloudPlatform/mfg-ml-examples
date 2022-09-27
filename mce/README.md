@@ -1,0 +1,1 @@
+# Manufacturing Connect edge Configurations
