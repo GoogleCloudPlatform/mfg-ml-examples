@@ -24,6 +24,10 @@ environment.
       token is `kf6kf3`, you will base64 encode `kf6kf3:` (notice the extra
       `:` at the end) and obtain `a2Y2a2YzOgo=` as the result. Then, you will
       use `a2Y2a2YzOgo=` in your `.env` file.
+
+      > You can use the command to base64 encode the API token
+        `echo -n "<MCE_API_TOKEN>" | base64`
+
     ![MCe API token creation](./img/mce_api_token_creation.png)
     - To obtain MCe Pub/Sub connector id, you can get it from the "Integration"
       section in your MCe instance.
@@ -60,10 +64,7 @@ and train & deploy AutoML models in Jupyter notebooks.
 
 1. Navigate to [Vertex AI Workbench](https://console.cloud.google.com/vertex-ai/workbench/legacy-instances).
     - If this is your first time using Vertex AI, you will need to enable
-      Vertex AI API before proceeding.
-
-1. Enable the Notebook API shown in the banner.
-<!-- TODO: screenshot -->
+      Vertex AI and Notebooks API before proceeding.
 
 1. Create a new managed notebook.
     - Change the notebook instance name and region to your preferred name

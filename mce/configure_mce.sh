@@ -30,12 +30,13 @@ function callMCeDeviceHubAPI() {
     createCounter=0
     for FILE in "${2}"/*.json; do
         createCounter=$((createCounter + 1))
-        #echo "@${FILE}"
+        # echo "@${FILE}"
         printf "${BLUE}File #${createCounter}: ${FILE}${NC}\n"
         curl -L -X POST "${MCE_URL}${3}" \
             -H 'Content-Type: application/json' \
             -H "Authorization: Basic ${MCE_API_TOKEN}" \
             -d "@${FILE}" \
+            --post301 \
             -k
         printf "${BLUE}\nFile #${createCounter} DONE\n${NC}"
     done
