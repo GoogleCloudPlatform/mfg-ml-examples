@@ -14,22 +14,22 @@
 
 # Database connection identifier, as defined in "Admin->Database->Connection"
 constant: looker_connection {
-  value: "mde-ml-dev"
+  value: "<BIGQUERY_CONNECT_NAME>"
 }
 
 # LookML project identifier, as defined in "Develop->Manage LookML projects->Project"
 constant: looker_projectid {
-  value: "mde-ml"
+  value: "<LOOKML_PROJECT_ID>"
 }
 
-# Descriptive name for the LookML project, to be used in Name definition of explore's
+# Descriptive name for the LookML project, to be used in explore and view labels
 constant: looker_projectName {
-  value: "MDE ML Dev"
+  value: "<LOOKML_PROJECT_NAME>"
 }
 
 # URL of the current Looker instance, used for creation of dashboard links
 constant: looker_instance_link {
-  value: "https://imde.cloud.looker.com"
+  value: "<LOOKER_INSTANCE_URL>"
 }
 
 # Defines interval to rebuild cache for data series queries
@@ -39,8 +39,8 @@ constant: default_cache_refresh {
   value: "2 minutes"
 }
 
-# Defines interval to rebuild cache tables holding the Metadata and TagConfiguration information
-# synchronized from config manager
+# Defines interval to rebuild cache tables holding the metadata and
+# tag configuration information synchronized from config manager
 constant: pde_refresh {
   # recommended to keep it between 10-60 minutes
   value: "10 minutes"
@@ -52,30 +52,28 @@ constant: operationalRanges_refresh {
 }
 
 # Defines the backend storage for MDE Config Manager component
-# The LookML model is using the data for optimization of tag-selection and metadata handling
+# The LookML model is using Config Manager for tag selection and metadata handling
 constant: gcp_imde_configmgmt_storagetype {
-  # the default MDE configuration backend is cloudSQL, the bigtable is an second option
-  # For both types of Config Management backend, an federation between BigQuery and the ConfigMgmt-DB
-  # need to be setup prior the usage
-  # For instances where setup of the federation links isn't possible because of org policies
-  # the option flatschema can be used in combination with flatSchema=true
+  # Options: `cloudsql` (default), `bigtable`, `flatschema`
+  # Note: connection between BigQuery and Config Manager database is required
+  # prior the usage
+  # If BigQuery connection cannot be created because of org policies,
+  # the option `flatschema` can be used in combination with `flatSchema=true`
   # configured at tag level
 
-  # cloudsql, bigtable or flatschema
   value: "cloudsql"
 }
 
-# Only applies for option: gcp_imde_configmgmt_storagetype: flatschema
+# Only applies when `gcp_imde_configmgmt_storagetype: flatschema`
 #
-# defines if the metadata/qualifiers values will be extracted from
+# Defines if the metadata/qualifiers values will be extracted from
 # JSON or NestedRepeated record-columns at SQL level
 constant: gcp_imde_meta_storagetype {
   # json or kv
   value: "json"
 }
 
-# only applies for option: gcp_imde_configmgmt_storagetype: cloudsql
+# only applies when `gcp_imde_configmgmt_storagetype: cloudsql`
 constant: gcp_cloudsqllink {
-  # Defines the
-  value: "projects/mde-ml-dev-01/locations/us/connections/imde-cfg-sql"
+  value: "<BIGQUERY_CLOUDSQL_CONNECTION_ID>"
 }
