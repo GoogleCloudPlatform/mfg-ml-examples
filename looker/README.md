@@ -23,7 +23,7 @@ You can create it in [Cloud Shell](https://cloud.google.com/shell)
 using the code snippet below:
 
     ```sh
-    export LOCATION=EU
+    export LOCATION=US
     export BQ_DATASET_LOOKER_PDT="mde_looker_pdt"
     bq --location=${LOCATION} mk --dataset ${BQ_DATASET_LOOKER_PDT}
     ```
@@ -36,14 +36,22 @@ with the required permissions using the code snippet below:
     export PROJECT_ID="customer-mdeproject-h123"
 
     export SA_LOOKER="mde-looker"
-    gcloud iam service-accounts create $SA_LOOKER --display-name "MDE Looker account"
-    gcloud projects add-iam-policy-binding ${PROJECT_ID} --member serviceAccount:${SA_LOOKER}@${PROJECT_ID}.iam.gserviceaccount.com  --role "roles/bigquery.dataEditor"
-    gcloud projects add-iam-policy-binding ${PROJECT_ID} --member serviceAccount:${SA_LOOKER}@${PROJECT_ID}.iam.gserviceaccount.com  --role "roles/bigquery.jobUser"
-    gcloud projects add-iam-policy-binding ${PROJECT_ID} --member serviceAccount:${SA_LOOKER}@${PROJECT_ID}.iam.gserviceaccount.com  --role "roles/bigtable.user"
+    gcloud iam service-accounts create $SA_LOOKER \
+      --display-name "MDE Looker account"
+    gcloud projects add-iam-policy-binding ${PROJECT_ID} \
+      --member serviceAccount:${SA_LOOKER}@${PROJECT_ID}.iam.gserviceaccount.com  \
+      --role "roles/bigquery.dataEditor"
+    gcloud projects add-iam-policy-binding ${PROJECT_ID} \
+      --member serviceAccount:${SA_LOOKER}@${PROJECT_ID}.iam.gserviceaccount.com  \
+      --role "roles/bigquery.jobUser"
+    gcloud projects add-iam-policy-binding ${PROJECT_ID} \
+      --member serviceAccount:${SA_LOOKER}@${PROJECT_ID}.iam.gserviceaccount.com  \
+      --role "roles/bigtable.user"
 
     # Creation of SA key
     export SA_LOOKER_KEY=~/projects/$PROJECT_ID/${SA_LOOKER}_key.json
-    gcloud iam service-accounts keys create $SA_LOOKER_KEY --iam-account ${SA_LOOKER}@${PROJECT_ID}.iam.gserviceaccount.com
+    gcloud iam service-accounts keys create $SA_LOOKER_KEY \
+      --iam-account ${SA_LOOKER}@${PROJECT_ID}.iam.gserviceaccount.com
 
 
     cat <<EOF
@@ -60,6 +68,32 @@ with the required permissions using the code snippet below:
 
     EOF
     ```
+
+1. Create [BigQuery connection](https://cloud.google.com/bigquery/docs/working-with-connections)
+to MDE Config Manager database.
+
+  ```sh
+  export CLOUD_SQL_NAME=$(gcloud sql instances list \
+    --filter=name:"imde-config-manager*" \
+    --format="value(name)")
+  export CLOUD_SQL_REGION=$(gcloud sql instances list \
+    --filter=name:"imde-config-manager*" \
+    --format="value(region)")
+  export CLOUD_SQL_PASS=$(gcloud secrets versions access \
+    --secret=cloudsql-config-manager-root-password \
+    latest)
+
+  gcloud services enable bigqueryconnection.googleapis.com;
+  gcloud sql instances patch $CLOUD_SQL_NAME --assign-ip;
+  bq mk --connection \
+    --display_name='mde-cfg-sql' \
+    --connection_type='CLOUD_SQL' \
+    --properties="{\"instanceId\":\"$PROJECT_ID:$CLOUD_SQL_REGION:$CLOUD_SQL_NAME\",\"database\":\"configuration-manager\",\"type\":\"POSTGRES\"}" \
+    --connection_credential="{\"username\":\"root\",\"password\":\"$CLOUD_SQL_PASS\"}" \
+    --project_id=$PROJECT_ID \
+    --location=$LOCATION \
+    mde-cfg-sql
+  ```
 
 ## Deployment
 
@@ -79,9 +113,11 @@ An example of database connection settings is provided on the screenshot below:
 
 ### Create LookML project and configure Git integration
 
-You can deploy the LookML into your Looker instance by
-[creating a new LookML project](https://cloud.google.com/looker/docs/create-projects#creating_a_project)
-and [cloning this public GitHub repository](https://cloud.google.com/looker/docs/create-projects#cloning_a_public_git_repository).
+You can deploy the LookML into your Looker instance by:
+
+1. [Creating a new LookML project](https://cloud.google.com/looker/docs/create-projects#creating_a_project)
+1. [Cloning this repository](https://cloud.google.com/looker/docs/create-projects#cloning_a_public_git_repository)
+1. [Configuring LookML project manifest file](/manifest.lkml)
 
 Once Git integration is configured, you should be able able to access your
 MDE dashboards by selecting from the top menu:
