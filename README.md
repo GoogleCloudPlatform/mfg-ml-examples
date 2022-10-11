@@ -8,7 +8,7 @@ and [Vertex AI](https://cloud.google.com/vertex-ai).
 
 ## Architecture
 
-![Architecture of Machine Learning for Manufacturing, Manufacturing Data Engine, and Manufacturing Connect](./docs/img/mfg_ml_architecture.png)
+![Architecture of Machine Learning for Manufacturing, MDE, and MC](./docs/img/mfg_ml_architecture.png)
 
 The Machine Learning for Manufacturing solution accelerator
 includes the following components:

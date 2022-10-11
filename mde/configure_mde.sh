@@ -13,7 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 ###############################################################################
 # Variables
 ###############################################################################
@@ -21,10 +20,16 @@
 MDE_CONFIG_MANAGER_URL='http://localhost'
 MDE_CONFIG_MANAGER_PORT='8080'
 
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-BLUE='\033[0;34m'
-NC='\033[0m' # No Color
+# Set magic variables for current file, directory, os, etc.
+__dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+__file="${__dir}/$(basename "${BASH_SOURCE[0]}")"
+__base="$(basename "${__file}" .sh)"
+
+###############################################################################
+# Import
+###############################################################################
+# shellcheck source=/dev/null
+source "${__dir}/../tools/utils.sh"
 
 ###############################################################################
 # Functions
@@ -38,18 +43,18 @@ help() {
 
 # START callConfigManagerAPI
 function callConfigManagerAPI() {
-    printf "${GREEN}*** ${1} ***\n${NC}"
+    log "******** ${1} configuration ********"
     createCounter=0
-    for FILE in "${2}"/*; do
+    for FILE in "${__dir}/${2}"/*; do
         createCounter=$((createCounter + 1))
-        printf "${BLUE}File #${createCounter}: ${FILE}${NC}\n"
+        log "File #${createCounter}: ${FILE}" '5'
         curl -X POST "${MDE_CONFIG_MANAGER_URL}:${MDE_CONFIG_MANAGER_PORT}/api/v1${3}" \
             -H 'Content-Type: application/json' \
             -H "Accept:application/json" \
             -d "@${FILE}"
-        printf "${BLUE}\nFile #${createCounter} DONE\n${NC}"
+        log "File #${createCounter} DONE" '5'
     done
-    printf "${GREEN}*** ${1} DONE ***\n\n${NC}"
+    log "******** ${1} configuration DONE ********\n"
 }
 # END callConfigManagerAPI
 
@@ -89,7 +94,7 @@ done
 ###############################################################################
 # Main
 ###############################################################################
-printf "Using URL: ${MDE_CONFIG_MANAGER_URL} on port: ${MDE_CONFIG_MANAGER_PORT}\n"
+log "Using URL: ${MDE_CONFIG_MANAGER_URL} on port: ${MDE_CONFIG_MANAGER_PORT}"
 
 callConfigManagerAPI "TYPES" "types" "/types"
 callConfigManagerAPI "BUCKETS" "buckets" "/metadata/bucket"
@@ -101,11 +106,11 @@ callConfigManagerAPI "PARSERS" "parsers" "/pipelines"
 callConfigManagerAPI "TAGS" "tags" "/tags"
 
 # START customer logic for metadata instances
-printf "${GREEN}*** METATDATA VALUE TO TAGS ***\n${NC}"
+log "******** METATDATA VALUE TO TAGS configuration ********"
 createCounter=0
-for FILE in metadata_instances/*; do
+for FILE in "${__dir}/metadata_instances"/*; do
     createCounter=$((createCounter + 1))
-    printf "${BLUE}File #${createCounter}: ${FILE}${NC}\n"
+    log "File #${createCounter}: ${FILE}" '5'
     IFS='/' read -r -a filename <<<"${FILE}"       #remove folder
     IFS='.' read -r -a tagname <<<"${filename[1]}" #remove extension
 
@@ -114,7 +119,7 @@ for FILE in metadata_instances/*; do
         -H "Accept:application/json" \
         -d "@${FILE}"
 
-    printf "${BLUE}\nFile #${createCounter} DONE\n${NC}"
+    log "File #${createCounter} DONE" '5'
 done
-printf "${GREEN}*** ${1} DONE ***\n\n${NC}"
+log "******** ${1} configuration DONE ********\n"
 # END customer logic for metadata instances

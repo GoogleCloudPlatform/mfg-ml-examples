@@ -7,10 +7,10 @@ environment.
 ## Prerequisites
 
 1. A MDE & MC & MCe environment with the latest version.
-   - Refer to MDE Deployment Guide for instructions on deploying MDE.
-   - Network access to MDE Config Manager is required.
-   - Please work with your Google Cloud representative to create
-     a MDE environment.
+    - Refer to MDE Deployment Guide for instructions on deploying MDE.
+    - Network access to MDE Config Manager is required.
+    - Please work with your Google Cloud representative to create
+    a MDE environment.
 
 ## Instructions
 
@@ -19,18 +19,18 @@ environment.
 1. Copy [/tools/.env.example](/tools/.env.example) into `/tools/.env`
    and update the environment variable values.
     - To obtain MCe API token, you can create an API token through your MCe
-      instances. After you obtain the API token, you will have to base64
-      encode the API token with an appended `:`. For example, if your API
-      token is `kf6kf3`, you will base64 encode `kf6kf3:` (notice the extra
-      `:` at the end) and obtain `a2Y2a2YzOgo=` as the result. Then, you will
-      use `a2Y2a2YzOgo=` in your `.env` file.
+    instances. After you obtain the API token, you will have to base64
+    encode the API token with an appended `:`. For example, if your API
+    token is `kf6kf3`, you will base64 encode `kf6kf3:` (notice the extra
+    `:` at the end) and obtain `a2Y2a2YzOgo=` as the result. Then, you will
+    use `a2Y2a2YzOgo=` in your `.env` file.
 
-      > You can use the command to base64 encode the API token
-        `echo -n "<MCE_API_TOKEN>" | base64`
+    > You can use the command to base64 encode the API token
+    > `echo -n "<MCE_API_TOKEN>" | base64`
 
     ![MCe API token creation](./img/mce_api_token_creation.png)
     - To obtain MCe Pub/Sub connector id, you can get it from the "Integration"
-      section in your MCe instance.
+    section in your MCe instance.
     ![MCe Pub/Sub connector id](./img/mce_pubsub_connector_id.png)
 
 1. (Optional) Start a SSH tunnel to the [Google Compute Engine](https://cloud.google.com/compute)
