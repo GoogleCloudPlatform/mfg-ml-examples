@@ -12,7 +12,8 @@ repos:
       - id: check-toml
       - id: check-yaml
       - id: pretty-format-json
-        args: [--autofix, --no-ensure-ascii, --no-sort-keys]
+        args: [--no-sort-keys, --indent, '4']
+        exclude: ^(mde/ingestions/predictions.json)
       - id: check-ast
       - id: debug-statements
       - id: check-docstring-first
@@ -33,6 +34,16 @@ repos:
     rev: 22.10.0
     hooks:
       - id: black
+      - id: black-jupyter
+
+  - repo: local
+    hooks:
+      - id: jupyter-clear-output
+        name: jupyter-clear-output
+        files: \.ipynb$
+        stages: [commit]
+        language: system
+        entry: jupyter nbconvert --clear-output
 
   - repo: https://github.com/pycqa/flake8
     rev: 5.0.4
@@ -43,13 +54,10 @@ repos:
     rev: 56789d7ae0dec1795a6b433582ebe5bf504fbf4f
     hooks:
       - id: markdownlint
+        args: [--rules, '~MD007,~MD013']
+        exclude: ^(.github/)
 
   - repo: https://github.com/jumanjihouse/pre-commit-hooks
     rev: 3.0.0
     hooks:
       - id: shellcheck
-
-  - repo: https://github.com/pre-commit/pre-commit
-    rev: v2.20.0
-    hooks:
-      - id: validate_manifest

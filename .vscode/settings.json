@@ -1,22 +1,22 @@
 {
-  "editor.bracketPairColorization.enabled": true,
-  "[json]": {
-    "editor.defaultFormatter": "vscode.json-language-features"
-  },
-  "files.autoSave": "onWindowChange",
-  "git.inputValidationSubjectLength": 72,
-  "files.trimTrailingWhitespace": true,
-  "[dockerfile]": {
-    "editor.defaultFormatter": "ms-azuretools.vscode-docker"
-  },
-  "[markdown]": {
-    "editor.defaultFormatter": "yzhang.markdown-all-in-one"
-  },
-  "markdown.extension.orderedList.autoRenumber": false,
-  "editorconfig.generateAuto": false,
-  "markdown.extension.orderedList.marker": "one",
-  "markdown.extension.tableFormatter.enabled": false,
-  "python.formatting.provider": "black",
-  "python.linting.pylintEnabled": true,
-  "window.zoomLevel": 1
+    "editor.bracketPairColorization.enabled": true,
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "files.autoSave": "onWindowChange",
+    "git.inputValidationSubjectLength": 72,
+    "files.trimTrailingWhitespace": true,
+    "[dockerfile]": {
+        "editor.defaultFormatter": "ms-azuretools.vscode-docker"
+    },
+    "[markdown]": {
+        "editor.defaultFormatter": "yzhang.markdown-all-in-one"
+    },
+    "markdown.extension.orderedList.autoRenumber": false,
+    "editorconfig.generateAuto": false,
+    "markdown.extension.orderedList.marker": "one",
+    "markdown.extension.tableFormatter.enabled": false,
+    "python.formatting.provider": "black",
+    "python.linting.pylintEnabled": true,
+    "window.zoomLevel": 1
 }

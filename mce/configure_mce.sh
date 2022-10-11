@@ -13,7 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 ###############################################################################
 # Variables
 ###############################################################################
@@ -22,10 +21,16 @@ MCE_URL='https://localhost'                                    # format: 'https:
 MCE_API_TOKEN='aGVsbG93b3JsZDo='                               # base64 encoded MCe API key + ':'
 MCE_PUBSUB_CONNECTOR_ID='11111111-aaaa-2222-bbbb-333333333333' # MCe pub/sub connector id
 
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-BLUE='\033[0;34m'
-NC='\033[0m' # No Color
+# Set magic variables for current file, directory, os, etc.
+__dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+__file="${__dir}/$(basename "${BASH_SOURCE[0]}")"
+__base="$(basename "${__file}" .sh)"
+
+###############################################################################
+# Import
+###############################################################################
+# shellcheck source=/dev/null
+source "${__dir}/../tools/utils.sh"
 
 ###############################################################################
 # Functions
@@ -40,32 +45,32 @@ help() {
 
 # START callMCeDeviceHubAPI
 function callMCeDeviceHubAPI() {
-    printf "${GREEN}*** ${1} ***\n${NC}"
+    log "******** ${1} configuration ********"
     createCounter=0
-    for FILE in "${2}"/*.json; do
+    for FILE in "${__dir}/${2}"/*.json; do
         createCounter=$((createCounter + 1))
         # echo "@${FILE}"
-        printf "${BLUE}File #${createCounter}: ${FILE}${NC}\n"
+        log "File #${createCounter}: ${FILE}" '5'
         curl -L -X POST "${MCE_URL}${3}" \
             -H 'Content-Type: application/json' \
             -H "Authorization: Basic ${MCE_API_TOKEN}" \
             -d "@${FILE}" \
             --post301 \
             -k
-        printf "${BLUE}\nFile #${createCounter} DONE\n${NC}"
+        log "File #${createCounter} DONE" '5'
     done
-    printf "${GREEN}*** ${1} DONE ***\n\n${NC}"
+    log "******** ${1} configuration DONE ********\n"
 }
 # END callMCeDeviceHubAPI
 
 # START callMCeDeviceHubAPINoPayload
 function callMCeDeviceHubAPINoPayload() {
-    printf "${GREEN}*** ${1} ***\n${NC}"
+    log "******** ${1} ********"
     curl -L -X "${2}" "${MCE_URL}${3}" \
         -H 'Content-Type: application/json' \
         -H "Authorization: Basic ${MCE_API_TOKEN}" \
         -k
-    printf "${GREEN}*** ${1} DONE ***\n\n${NC}"
+    log "******** ${1} DONE ********\n"
 }
 # END callMCeDeviceHubAPINoPayload
 
@@ -110,9 +115,8 @@ done
 ###############################################################################
 # Main
 ###############################################################################
-
 # Let the user know what we end up calling
-printf "Using URL: ${MCE_URL} \n"
+log "Using URL: ${MCE_URL}"
 
 callMCeDeviceHubAPINoPayload "STOP CONNECTOR" "PUT" "/cc/instances/${MCE_PUBSUB_CONNECTOR_ID}/disable"
 callMCeDeviceHubAPI "CONNECTORS" "connectors" "/cc/instances/${MCE_PUBSUB_CONNECTOR_ID}/createSubs"

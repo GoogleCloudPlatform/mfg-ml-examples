@@ -67,7 +67,7 @@ function print_footer() {
 }
 
 ##############################################################################
-# Replace standard ECHO function with custom ou t
+# Replace standard ECHO function with custom out
 # PARAMS: 1 - Text to show (mandatory)
 #         2 - Logging level (optional) - see levels below
 ##############################################################################
@@ -79,7 +79,7 @@ ECHO_WARNING="3"
 ECHO_INFO="4"
 ECHO_DEBUG="5"
 # Default logging level
-ECHO_LEVEL="${ECHO_INFO}"
+ECHO_LEVEL="${ECHO_DEBUG}"
 function log() {
     local RED='\033[0;31m'
     local GREEN='\033[32m'

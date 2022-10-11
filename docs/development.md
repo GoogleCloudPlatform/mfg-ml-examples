@@ -6,20 +6,21 @@
 - [gcloud CLI](https://cloud.google.com/sdk/docs/install)
 - [Commitizen](https://commitizen-tools.github.io/commitizen/#installation)
 - [Poetry](https://python-poetry.org/docs/#installation)
+- [shellcheck](https://www.shellcheck.net/)
 
 ## Install Dependencies
 
 1. Install Python dependencies.
 
-    ```bash
-    poetry install --with dev
-    ```
+  ```bash
+  poetry install --with dev
+  ```
 
 1. Install pre commit hooks.
 
-    ```bash
-    poetry run pre-commit install
-    ```
+  ```bash
+  poetry run pre-commit install
+  ```
 
 ## Toolings
 

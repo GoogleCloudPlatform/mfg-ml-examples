@@ -6,11 +6,14 @@ This is an adaptation of the [Manufacturing Data Engine LookML Template](https:/
 ## Prerequisites
 
 - An active Looker instance.
-- A Looker account with [permissions](https://cloud.google.com/looker/docs/admin-panel-users-roles) to:
+- A Looker account with [permissions](https://cloud.google.com/looker/docs/admin-panel-users-roles)
+  to:
   - Add database connection to MDE BigQuery tables.
   - Create new LookML project and setup Git integration.
+
 - An active MDE environment with the latest version.
-- A GCP account with [permissions](https://cloud.google.com/iam/docs/understanding-roles) to:
+- A GCP account with [permissions](https://cloud.google.com/iam/docs/understanding-roles)
+  to:
   - Create new BigQuery dataset
   - Create new service account
   - Assign roles to service accounts
@@ -18,9 +21,9 @@ This is an adaptation of the [Manufacturing Data Engine LookML Template](https:/
 ## GCP Setup
 
 1. The LookML model is optimized to use Looker's persistent derived tables (PDT).
-Hence, dedicated dataset for storing the PDT in BigQuery is recommended.
-You can create it in [Cloud Shell](https://cloud.google.com/shell)
-using the code snippet below:
+   Hence, dedicated dataset for storing the PDT in BigQuery is recommended.
+   You can create it in [Cloud Shell](https://cloud.google.com/shell)
+   using the code snippet below:
 
     ```sh
     export LOCATION=US
@@ -29,29 +32,29 @@ using the code snippet below:
     ```
 
 1. An service account with SA key is required. You can create a service account
-with the required permissions using the code snippet below:
+   with the required permissions using the code snippet below:
 
     ```sh
-
     export PROJECT_ID="customer-mdeproject-h123"
-
     export SA_LOOKER="mde-looker"
+    export SA_LOOKER_EMAIL="${SA_LOOKER}@${PROJECT_ID}.iam.gserviceaccount.com"
+
     gcloud iam service-accounts create $SA_LOOKER \
       --display-name "MDE Looker account"
     gcloud projects add-iam-policy-binding ${PROJECT_ID} \
-      --member serviceAccount:${SA_LOOKER}@${PROJECT_ID}.iam.gserviceaccount.com  \
+      --member serviceAccount:${SA_LOOKER_EMAIL} \
       --role "roles/bigquery.dataEditor"
     gcloud projects add-iam-policy-binding ${PROJECT_ID} \
-      --member serviceAccount:${SA_LOOKER}@${PROJECT_ID}.iam.gserviceaccount.com  \
+      --member serviceAccount:${SA_LOOKER_EMAIL} \
       --role "roles/bigquery.jobUser"
     gcloud projects add-iam-policy-binding ${PROJECT_ID} \
-      --member serviceAccount:${SA_LOOKER}@${PROJECT_ID}.iam.gserviceaccount.com  \
+      --member serviceAccount:${SA_LOOKER_EMAIL} \
       --role "roles/bigtable.user"
 
     # Creation of SA key
     export SA_LOOKER_KEY=~/projects/$PROJECT_ID/${SA_LOOKER}_key.json
     gcloud iam service-accounts keys create $SA_LOOKER_KEY \
-      --iam-account ${SA_LOOKER}@${PROJECT_ID}.iam.gserviceaccount.com
+      --iam-account ${SA_LOOKER_EMAIL}
 
 
     cat <<EOF
@@ -63,14 +66,14 @@ with the required permissions using the code snippet below:
     Project Name: ${PROJECT_ID}
     Dataset: sfp_data
     Dataset PDT: ${BQ_DATASET_LOOKER_PDT}
-    Service Account Email: ${SA_LOOKER}@${PROJECT_ID}.iam.gserviceaccount.com
+    Service Account Email: ${SA_LOOKER_EMAIL}
     Service Account JSON File: upload of ${SA_LOOKER_KEY}
 
     EOF
     ```
 
 1. Create [BigQuery connection](https://cloud.google.com/bigquery/docs/working-with-connections)
-to MDE Config Manager database.
+   to MDE Config Manager database.
 
   ```sh
   export CLOUD_SQL_NAME=$(gcloud sql instances list \
@@ -79,6 +82,7 @@ to MDE Config Manager database.
   export CLOUD_SQL_REGION=$(gcloud sql instances list \
     --filter=name:"imde-config-manager*" \
     --format="value(region)")
+  export CLOUD_SQL_ID="${PROJECT_ID}:${CLOUD_SQL_REGION}:${CLOUD_SQL_NAME}"
   export CLOUD_SQL_PASS=$(gcloud secrets versions access \
     --secret=cloudsql-config-manager-root-password \
     latest)
@@ -88,10 +92,10 @@ to MDE Config Manager database.
   bq mk --connection \
     --display_name='mde-cfg-sql' \
     --connection_type='CLOUD_SQL' \
-    --properties="{\"instanceId\":\"$PROJECT_ID:$CLOUD_SQL_REGION:$CLOUD_SQL_NAME\",\"database\":\"configuration-manager\",\"type\":\"POSTGRES\"}" \
-    --connection_credential="{\"username\":\"root\",\"password\":\"$CLOUD_SQL_PASS\"}" \
-    --project_id=$PROJECT_ID \
-    --location=$LOCATION \
+    --properties="{\"instanceId\":\"${CLOUD_SQL_ID}\",\"database\":\"configuration-manager\",\"type\":\"POSTGRES\"}" \
+    --connection_credential="{\"username\":\"root\",\"password\":\"${CLOUD_SQL_PASS}\"}" \
+    --project_id=${PROJECT_ID} \
+    --location=${LOCATION} \
     mde-cfg-sql
   ```
 
