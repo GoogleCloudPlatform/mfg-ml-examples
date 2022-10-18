@@ -4,8 +4,8 @@
         "provider": "local",
         "bucketName": "cncmill",
         "attributes": {
-            "companyId": "CM",
-            "company": "Cymbal Materials",
+            "companyId": "CF",
+            "company": "Cymbal Fabrication",
             "plantId": "CAM",
             "plant": "Cambridge, MA",
             "city": "Cambridge",
