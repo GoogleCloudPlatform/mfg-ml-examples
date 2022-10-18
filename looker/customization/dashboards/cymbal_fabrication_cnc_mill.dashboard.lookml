@@ -1,16 +1,16 @@
-- dashboard: cymbal_materials_cnc_mill
-  title: Cymbal Materials CNC Mill
+- dashboard: cymbal_fabrication_cnc_mill
+  title: Cymbal Fabrication CNC Mill
   layout: newspaper
   preferred_viewer: dashboards-next
   crossfilter_enabled: true
   description: ''
-  preferred_slug: oB8wQqIBoGLH6COAExIUbw
+  preferred_slug: rUqSOacETMwusKJ9CnxRun
   elements:
   - name: ''
     type: text
     title_text: ''
     subtitle_text: ''
-    body_text: <img width="200px" src="https://storage.googleapis.com/ipe-solution-external_public/cymbal_materials_brand.png"/>
+    body_text: <img width="200px" src="https://storage.googleapis.com/gc-mde-demo-public/cymbal_fabrication_brand.png"/>
     row: 1
     col: 0
     width: 4
@@ -19,15 +19,14 @@
     type: text
     title_text: ''
     subtitle_text: ''
-    body_text: <img width="250px" src="https://storage.googleapis.com/ipe-solution-external_public/cnc_mill.jpeg"/>
+    body_text: <img width="250px" src="https://storage.googleapis.com/gc-mde-demo-public/cnc_mill.jpeg"/>
     row: 4
     col: 0
-    width: 5
+    width: 4
     height: 5
   - name: Asset Information
     type: text
     title_text: Asset Information
-    subtitle_text: ''
     body_text: ''
     row: 0
     col: 0
@@ -36,7 +35,6 @@
   - name: Prediction Details
     type: text
     title_text: Prediction Details
-    subtitle_text: ''
     body_text: ''
     row: 9
     col: 0
@@ -85,8 +83,8 @@
       Time window filter: data_series_discrete.timeinterval_filter
       Score Threshold: data_series_discrete.score_threshold
     row: 1
-    col: 5
-    width: 5
+    col: 4
+    width: 6
     height: 2
   - title: Latest Prediction Timestamp
     name: Latest Prediction Timestamp
@@ -338,7 +336,6 @@
   - name: Model Analysis
     type: text
     title_text: Model Analysis
-    subtitle_text: ''
     body_text: ''
     row: 25
     col: 0
@@ -349,11 +346,11 @@
     model: mde-ml
     explore: data_series_discrete
     type: looker_line
-    fields: [data_series_discrete.timestamp_event_minute, data_series_discrete.predicted_tool_condition_numeric_agg]
+    fields: [data_series_discrete.predicted_tool_condition_numeric_agg, data_series_discrete.timestamp_event_minute5]
     filters:
       data_series_discrete.predicted_tool_condition_numeric_agg: NOT NULL
-    sorts: [data_series_discrete.timestamp_event_minute desc]
-    limit: 500
+    sorts: [data_series_discrete.timestamp_event_minute5 desc]
+    limit: 200
     query_timezone: America/New_York
     x_axis_gridlines: false
     y_axis_gridlines: true
@@ -386,8 +383,8 @@
       Time window filter: data_series_discrete.timeinterval_filter
       Score Threshold: data_series_discrete.score_threshold
     row: 3
-    col: 11
-    width: 13
+    col: 10
+    width: 14
     height: 6
   - title: Actual and Predicted Tool Condition over Time
     name: Actual and Predicted Tool Condition over Time
@@ -554,7 +551,7 @@
       Time window filter: data_series_discrete.timeinterval_filter
       Score Threshold: data_series_discrete.score_threshold
     row: 3
-    col: 5
+    col: 4
     width: 6
     height: 6
   - title: Actions

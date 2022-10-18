@@ -17,8 +17,8 @@
 # Variables
 ###############################################################################
 # Default values for variables
-MDE_CONFIG_MANAGER_URL='http://localhost'
-MDE_CONFIG_MANAGER_PORT='8080'
+MDE_CONFIG_MANAGER_URL='http://localhost' # format: 'http://<ip-or-dns>'
+MDE_CONFIG_MANAGER_PORT='8080'            # format: [0-65536]
 
 # Set magic variables for current file, directory, os, etc.
 __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
