@@ -3,10 +3,12 @@
 name = "cz_conventional_commits"
 version = "0.0.1"
 tag_format = "v$version"
+changelog_file = "CHANGELOG.md"
+update_changelog_on_bump = true
+
 
 [tool.poetry]
 name = "mfg-ml-examples"
-version = "0.0.1"
 description = "Practical examples of machine learning use cases in manufacturing"
 authors = ["Ka Wo Fong <kawo@google.com>"]
 license = "Apache-2.0"

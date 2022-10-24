@@ -55,7 +55,11 @@ repos:
     hooks:
       - id: markdownlint
         args: [--rules, '~MD007,~MD013']
-        exclude: ^(.github/)
+        exclude: |
+            (?x)^(
+                .github/|
+                CHANGELOG.md
+            )
 
   - repo: https://github.com/jumanjihouse/pre-commit-hooks
     rev: 3.0.0
