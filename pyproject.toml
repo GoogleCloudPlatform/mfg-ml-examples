@@ -9,6 +9,7 @@ update_changelog_on_bump = true
 
 [tool.poetry]
 name = "mfg-ml-examples"
+version = "1.1.2"
 description = "Practical examples of machine learning use cases in manufacturing"
 authors = ["Ka Wo Fong <kawo@google.com>"]
 license = "Apache-2.0"
@@ -16,10 +17,13 @@ readme = "README.md"
 packages = []
 
 [tool.poetry.dependencies]
-python = ">=3.7.2,<3.11"
+python = ">=3.8,<3.11"
 fsspec = "^2022.8.2"
 gcsfs = "^2022.8.2"
 google-cloud-aiplatform = "^1.18.0"
+pandas = "^1.5.1"
+matplotlib = "^3.6.2"
+seaborn = "^0.12.1"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^2.20.0"
@@ -27,6 +31,7 @@ black = "^22.10.0"
 pylint = "^2.15.4"
 flake8 = "^5.0.4"
 nbconvert = "^7.2.1"
+ipykernel = "^6.17.0"
 
 [build-system]
 requires = ["poetry-core"]
