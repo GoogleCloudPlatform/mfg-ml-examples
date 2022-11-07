@@ -9,13 +9,13 @@ This is an adaptation of the [Manufacturing Data Engine LookML Template](https:/
 - A Looker account with [permissions](https://cloud.google.com/looker/docs/admin-panel-users-roles)
   to:
   - Add database connection to MDE BigQuery tables.
-  - Create new LookML project and setup Git integration.
+  - Create new LookML projects and setup Git integration.
 
 - An active MDE environment with the latest version.
 - A GCP account with [permissions](https://cloud.google.com/iam/docs/understanding-roles)
   to:
-  - Create new BigQuery dataset
-  - Create new service account
+  - Create new BigQuery datasets
+  - Create new service accounts
   - Assign roles to service accounts
 
 ## GCP Setup
@@ -31,7 +31,7 @@ This is an adaptation of the [Manufacturing Data Engine LookML Template](https:/
     bq --location=${LOCATION} mk --dataset ${BQ_DATASET_LOOKER_PDT}
     ```
 
-1. An service account with SA key is required. You can create a service account
+1. A service account with a SA key is required. You can create a service account
    with the required permissions using the code snippet below:
 
     ```sh
@@ -41,6 +41,9 @@ This is an adaptation of the [Manufacturing Data Engine LookML Template](https:/
 
     gcloud iam service-accounts create $SA_LOOKER \
       --display-name "MDE Looker account"
+    gcloud projects add-iam-policy-binding ${PROJECT_ID} \
+      --member serviceAccount:${SA_LOOKER_EMAIL} \
+      --role "roles/bigquery.connectionUser"
     gcloud projects add-iam-policy-binding ${PROJECT_ID} \
       --member serviceAccount:${SA_LOOKER_EMAIL} \
       --role "roles/bigquery.dataEditor"
@@ -73,7 +76,7 @@ This is an adaptation of the [Manufacturing Data Engine LookML Template](https:/
     ```
 
 1. Create [BigQuery connection](https://cloud.google.com/bigquery/docs/working-with-connections)
-   to MDE Config Manager database.
+   to the MDE Config Manager database.
 
   ```sh
   export CLOUD_SQL_NAME=$(gcloud sql instances list \
@@ -101,7 +104,7 @@ This is an adaptation of the [Manufacturing Data Engine LookML Template](https:/
 
 ## Deployment
 
-The deployment of the MFG ML LookML is done in three steps:
+The deployment of the MFG ML LookML is done in 2 steps:
 
 - Create BigQuery connection in Looker
 - Create LookML project and configure Git integration
@@ -127,7 +130,7 @@ Once Git integration is configured, you should be able able to access your
 MDE dashboards by selecting from the top menu:
 **Browse** -> **All Folders** -> **LookML dashboards**
 
-For convenience, it is recommended to [set up an Board](https://cloud.google.com/looker/docs/presenting-content#creating_a_board)
+For convenience, it is recommended to [set up a Board](https://cloud.google.com/looker/docs/presenting-content#creating_a_board)
 and [pin the MDE LookML dashboards to this Board](https://cloud.google.com/looker/docs/presenting-content#adding_looks_and_dashboards_to_a_board).
 
 ## Customization
