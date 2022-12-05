@@ -111,9 +111,8 @@ createCounter=0
 for FILE in "${__dir}/metadata_instances"/*; do
     createCounter=$((createCounter + 1))
     log "File #${createCounter}: ${FILE}" '5'
-    IFS='/' read -r -a filename <<<"${FILE}"       #remove folder
-    IFS='.' read -r -a tagname <<<"${filename[1]}" #remove extension
-
+    filename=$(basename "${FILE}")
+    IFS='.' read -r -a tagname <<<"${filename}"
     curl -X POST "${MDE_CONFIG_MANAGER_URL}:${MDE_CONFIG_MANAGER_PORT}/api/v1/tags/${tagname[0]}/metadata" \
         -H 'Content-Type: application/json' \
         -H "Accept:application/json" \
