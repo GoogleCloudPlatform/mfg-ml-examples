@@ -702,7 +702,7 @@
   - name: Time window filter
     title: Time window filter
     type: field_filter
-    default_value: 7 day
+    default_value: 3 day
     allow_multiple_values: true
     required: true
     ui_config:

@@ -25,8 +25,8 @@ environment.
     `:` at the end) and obtain `a2Y2a2YzOgo=` as the result. Then, you will
     use `a2Y2a2YzOgo=` in your `.env` file.
 
-    > You can use the command to base64 encode the API token
-    > `echo -n "<MCE_API_TOKEN>" | base64`
+        > You can use the command to base64 encode the API token
+        > `echo -n "<MCE_API_TOKEN>" | base64`
 
     ![MCe API token creation](./img/mce_api_token_creation.png)
     - To obtain MCe Pub/Sub connector id, you can get it from the "Integration"

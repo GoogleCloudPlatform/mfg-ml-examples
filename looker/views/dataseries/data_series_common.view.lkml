@@ -67,7 +67,7 @@ view: data_series_common {
   dimension: metadata_json {
     description: "Metadata payload in JSON string format. Value is filled if MDE setting: Storage/FlatSchema has been set"
     type: string
-    sql: ${TABLE}.metaJson ;;
+    sql: TO_JSON_STRING(${TABLE}.metadata) ;;
   }
 
   dimension: metadata_json_kv {
@@ -80,7 +80,7 @@ view: data_series_common {
   dimension: qualifier_json {
     description: "Payload qualifier in JSON string format"
     type: string
-    sql: ${TABLE}.payloadQualifier ;;
+    sql: TO_JSON_STRING(${TABLE}.payloadQualifier) ;;
   }
 
   dimension: qualifier_kv {
@@ -104,7 +104,7 @@ view: data_series_common {
 
   dimension: payload_json {
     description: "Payload in JSON string format"
-    sql: ${TABLE}.payload;;
+    sql: TO_JSON_STRING(${TABLE}.payload);;
   }
 
   dimension: payload_json_kv {
@@ -302,7 +302,6 @@ view: data_series_common_timestamp {
     value_format_name: decimal_2
   }
 
-
   measure: ingestionrate_byEventTime_per_second{
     description: "Event rate (processing timestamp) per second at given aggreation level"
     type:  number
@@ -368,7 +367,6 @@ view: data_series_common_interval {
     sql: ${TABLE}.eventTimestampStart ;;
   }
 
-
   dimension_group: ingestion_freshness {
     description: "Computes the amout of time between the timestamp of event generation and storing processed event"
     type: duration
@@ -387,12 +385,10 @@ view: data_series_common_interval {
     sql_start: ${TABLE}.eventTimestampEnd ;;
   }
 
-
   dimension: event_interval_duration {
     type: number
     sql: TIMESTAMP_DIFF(${TABLE}.eventTimestampEnd, ${TABLE}.eventTimestampStart, second) ;;
   }
-
 
   measure: ingestionrate_byEventTime_per_second{
     description: "From interval closing event Timestamp"
@@ -400,7 +396,4 @@ view: data_series_common_interval {
     value_format_name: decimal_1
     sql: ${counter_records_total}/NullIf(timestamp_diff(max(${TABLE}.eventTimestampEnd), min(${TABLE}.eventTimestampEnd), SECOND),0) ;;
   }
-
-
-
 }
