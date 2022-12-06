@@ -1,3 +1,10 @@
+## v1.2.0 (2022-12-06)
+
+### Feat
+
+- make MDE v1.2.0 compatible
+- update compatibility to mde v1.1.2
+
 ## v1.1.2 (2022-10-24)
 
 ### Feat
